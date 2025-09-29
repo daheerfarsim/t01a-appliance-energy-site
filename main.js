@@ -6,6 +6,14 @@ const powerMap = {
   fridge: 180,
 };
 
+function navigate(pageId) 
+{
+  ['home', 'televisions', 'about'].forEach(id => {
+    el(id).style.display = id === pageId ? 'block' : 'none';
+    el('nav-' + id).classList.toggle('active', id === pageId);
+  });
+}
+
 const el = (id) => document.getElementById(id);
 const applianceSel = el('appliance');
 const powerInput = el('power');
@@ -70,3 +78,5 @@ applianceSel.addEventListener('change', () => { syncPreset(); });
   .forEach(inp => inp.addEventListener('input', () => { renderResults(); renderCompare(); }));
 calcBtn.addEventListener('click', () => { renderResults(); renderCompare(); });
 syncPreset(); renderResults(); renderCompare();
+
+navigate('home');

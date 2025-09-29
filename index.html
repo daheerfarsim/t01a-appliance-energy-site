@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
-<title>Appliance Energy Consumption Website</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Simple site to estimate appliance energy usage and monthly cost">
-<meta name="keywords" content="HTML, CSS, JavaScript">
-<meta name="author" content="K M Daheer Farsim">
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appliance Energy Consumption Website</title>
+  <meta name="description" content="Simple site to estimate appliance energy usage and monthly cost" />
+  <meta name="keywords" content="HTML, CSS, JavaScript" />
+  <meta name="author" content="K M Daheer Farsim" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -17,9 +16,45 @@
     <p class="subtitle">Estimate how much electricity your appliances use and what they cost per month.</p>
   </header>
 
+  <!-- Top navigation with clickable power logo -->
+  <nav class="navbar container">
+    <!-- Inline SVG = no file needed; click to go Home -->
+    <a class="logo" aria-label="Go to Home" onclick="navigate('home')" role="button">
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"></circle>
+        <line x1="12" y1="4" x2="12" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+      </svg>
+    </a>
+    <ul class="navlinks">
+      <li id="nav-home"         onclick="navigate('home')"        role="button">Home</li>
+      <li id="nav-televisions"  onclick="navigate('televisions')" role="button">Televisions</li>
+      <li id="nav-about"        onclick="navigate('about')"       role="button">About Us</li>
+    </ul>
+  </nav>
+
   <main class="container grid">
-    <section class="card">
-      <h2>Inputs</h2>
+    <!-- ========== HOME ========== -->
+    <section id="home" class="card">
+      <h2>What this site does</h2>
+      <p>
+        This tool estimates electricity use and monthly cost for common household appliances in Australia.
+        Enter an appliance wattage, how long you use it, and a tariff (price per kWh) to see the impact.
+      </p>
+
+      <div class="callout">
+        <strong>Australia context (placeholder):</strong>
+        <ul>
+          <li>Electricity is billed per kilowatt-hour (kWh).</li>
+          <li>Tariffs vary by state, retailer and usage tier; use your own bill’s rate for accuracy.</li>
+          <li>Energy Rating Labels (★ to ★★★★★) help compare appliance efficiency.</li>
+        </ul>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Calculator UI (same IDs so your JS works) -->
+      <h3>Quick Calculator</h3>
+
       <div class="field">
         <label for="appliance">Appliance</label>
         <select id="appliance">
@@ -57,39 +92,104 @@
           </select>
           <input id="tariff" type="number" min="0" step="0.01" value="0.50" />
         </div>
+        <small>Tip: Enter the tariff from your own bill for best accuracy.</small>
       </div>
 
       <button id="calcBtn" class="btn">Calculate</button>
-    </section>
 
-    <section class="card">
-      <h2>Results</h2>
-      <div id="results" class="results">
-        <p>Enter values and click <em>Calculate</em>.</p>
+      <div class="card soft">
+        <h3>Results</h3>
+        <div id="results" class="results">
+          <p>Enter values and click <em>Calculate</em>.</p>
+        </div>
+      </div>
+
+      <div class="card soft">
+        <h3>Compare a few presets</h3>
+        <div class="table-wrap">
+          <table id="compareTable">
+            <thead>
+              <tr>
+                <th>Appliance</th>
+                <th>W</th>
+                <th>kWh/day</th>
+                <th>Cost/month</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Compare a few presets</h2>
-      <div class="table-wrap">
-        <table id="compareTable">
-          <thead>
-            <tr>
-              <th>Appliance</th>
-              <th>W</th>
-              <th>kWh/day</th>
-              <th>Cost/month</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+    <!-- ========== TELEVISIONS ========== -->
+    <section id="televisions" class="card" style="display:none">
+      <h2>Television Energy Use in Australia</h2>
+      <p>
+        Modern TVs vary in power draw. LED/LCD models tend to be lower than similarly sized OLEDs.
+        Actual consumption depends on screen size, brightness, HDR, gaming mode, and standby settings.
+      </p>
+
+      <table class="info-table">
+        <thead>
+          <tr><th>Type</th><th>Typical range (W)</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>LED/LCD (32–55")</td><td>50–120 W</td><td>Lower draw at reduced brightness</td></tr>
+          <tr><td>OLED (48–77")</td><td>90–200 W</td><td>Higher with HDR content</td></tr>
+          <tr><td>Standby (any TV)</td><td>0.3–2 W</td><td>Turn off at the wall to avoid trickle use</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>How to estimate cost:</strong>
+        kWh/day = (Watts ÷ 1000) × hours used.
+        Monthly cost ≈ kWh/day × days × tariff.
       </div>
+
+      <p class="sources">
+        <em>References (placeholders):</em>
+        <a href="https://www.energyrating.gov.au" target="_blank" rel="noopener">Energy Rating Australia</a> •
+        Your electricity bill (tariff per kWh)
+      </p>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section id="about" class="card" style="display:none">
+      <h2>About this project</h2>
+      <p>
+        This site was built for <strong>COS30045 Data Visualisation</strong> to practise basic web development and
+        clear communication about household energy use in the Australian market. Numbers shown here are
+        illustrative placeholders; always check your own appliance label and electricity bill for exact values.
+      </p>
+
+      <h3>Attribution</h3>
+      <ul>
+        <li>Author: K M Daheer Farsim</li>
+        <li>GenAI assistance: content and code refined with ChatGPT (acknowledged per unit policy)</li>
+      </ul>
     </section>
   </main>
 
   <footer class="container foot">
-    <p>Built for COS30045 T01(a) • HTML • CSS • JavaScript</p>
+    <p>&copy; 2025 K M Daheer Farsim • Built for COS30045</p>
+    <p>Code partly generated with help of GenAI (ChatGPT)</p>
   </footer>
+
+  <!-- Navigation JS (inline for simplicity). Move into main.js if preferred. -->
+  <script>
+    function navigate(pageId) {
+      ['home','televisions','about'].forEach(id => {
+        const sec = document.getElementById(id);
+        const nav = document.getElementById('nav-' + id);
+        if (sec) sec.style.display = (id === pageId) ? 'block' : 'none';
+        if (nav) nav.classList.toggle('active', id === pageId);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Default page on first load:
+    document.addEventListener('DOMContentLoaded', () => navigate('home'));
+  </script>
 
   <script src="main.js" defer></script>
 </body>
