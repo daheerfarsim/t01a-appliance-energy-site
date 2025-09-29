@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+<title>Appliance Energy Consumption Website</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Simple site to estimate appliance energy usage and monthly cost">
+<meta name="keywords" content="HTML, CSS, JavaScript">
+<meta name="author" content="K M Daheer Farsim">
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="container">
+    <h1>Appliance Energy Consumption</h1>
+    <p class="subtitle">Estimate how much electricity your appliances use and what they cost per month.</p>
+  </header>
+
+  <main class="container grid">
+    <section class="card">
+      <h2>Inputs</h2>
+      <div class="field">
+        <label for="appliance">Appliance</label>
+        <select id="appliance">
+          <option value="custom">Custom</option>
+          <option value="tv_led">TV — LED (40–100W)</option>
+          <option value="tv_oled">TV — OLED (90–200W)</option>
+          <option value="fan">Fan — Standing (45–75W)</option>
+          <option value="ac_small">Air Conditioner — 1HP (~750W)</option>
+          <option value="fridge">Fridge — Medium (120–250W)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="power">Power (W)</label>
+        <input id="power" type="number" min="1" step="1" value="100" />
+      </div>
+
+      <div class="field two">
+        <div>
+          <label for="hours">Hours used per day</label>
+          <input id="hours" type="number" min="0" step="0.25" value="4" />
+        </div>
+        <div>
+          <label for="days">Days per month</label>
+          <input id="days" type="number" min="1" max="31" step="1" value="30" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="tariff">Electricity tariff (per kWh)</label>
+        <div class="inline">
+          <select id="currency">
+            <option value="RM">RM</option>
+            <option value="$">$</option>
+          </select>
+          <input id="tariff" type="number" min="0" step="0.01" value="0.50" />
+        </div>
+      </div>
+
+      <button id="calcBtn" class="btn">Calculate</button>
+    </section>
+
+    <section class="card">
+      <h2>Results</h2>
+      <div id="results" class="results">
+        <p>Enter values and click <em>Calculate</em>.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Compare a few presets</h2>
+      <div class="table-wrap">
+        <table id="compareTable">
+          <thead>
+            <tr>
+              <th>Appliance</th>
+              <th>W</th>
+              <th>kWh/day</th>
+              <th>Cost/month</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container foot">
+    <p>Built for COS30045 T01(a) • HTML • CSS • JavaScript</p>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
